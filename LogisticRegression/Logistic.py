@@ -10,10 +10,11 @@ class LogisticRegression:
     def fit(self,X,y):
         m,n = X.shape
         X =np.c_[np.ones(m),X]
-        self.theta =np.random.zeros(n+1)
+        if self.theta is None:
+            self.theta =np.zeros(n+1)
         for _ in range (self.max_iters):
-            h = np.dot(X,self.theta)
-            pred = self.sigmoid(h)
+            z = np.dot(X,self.theta)
+            pred = self.sigmoid(z)
             gradient = (1/m)*np.dot(X.T,pred-y)
             self.theta-= self.lr*gradient
 
